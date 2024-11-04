@@ -1,0 +1,54 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "elasticloadbalancing:Describe*",
+          "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+          "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+          "elasticloadbalancing:RegisterTargets",
+          "elasticloadbalancing:DeregisterTargets",
+          "ec2:Describe*",
+          "ec2:AuthorizeSecurityGroupIngress"
+        ],
+        "Resource": [
+          "*"
+        ]
+      },
+      {
+        "Sid": "AutoScaling",
+        "Effect": "Allow",
+        "Action": [
+            "autoscaling:Describe*"
+        ],
+        "Resource": "*"
+    },
+    {
+        "Sid": "AutoScalingManagement",
+        "Effect": "Allow",
+        "Action": [
+            "autoscaling:DeletePolicy",
+            "autoscaling:PutScalingPolicy",
+            "autoscaling:SetInstanceProtection",
+            "autoscaling:UpdateAutoScalingGroup"
+        ],
+        "Resource": "*",
+        "Condition": {
+            "Null": {
+                "autoscaling:ResourceTag/AmazonECSManaged": "false"
+            }
+        }
+    },
+    {
+        "Sid": "AutoScalingPlanManagement",
+        "Effect": "Allow",
+        "Action": [
+            "autoscaling-plans:CreateScalingPlan",
+            "autoscaling-plans:DeleteScalingPlan",
+            "autoscaling-plans:DescribeScalingPlans"
+        ],
+        "Resource": "*"
+    }
+    ]
+  }
